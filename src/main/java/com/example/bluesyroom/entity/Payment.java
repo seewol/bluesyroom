@@ -21,4 +21,7 @@ public class Payment {
     @Column(name = "CREATED_AT")
     private Date createdAt;
 
+    @OneToOne
+    @JoinColumn(name = "ORDER_NO")
+    private Order order;
 }
