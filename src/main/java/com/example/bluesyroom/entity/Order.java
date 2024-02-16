@@ -41,6 +41,9 @@ public class Order {
     @Column(name = "ORDER_PRICE", nullable = false)
     private long orderPrice;
 
+    @Column(name = "TRACKING_NUMBER")
+    private String trackingNumber;
+
     @ManyToOne
     @JoinColumn(name = "USER_NO")
     private User user;
