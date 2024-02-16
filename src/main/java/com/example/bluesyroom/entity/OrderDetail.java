@@ -18,4 +18,12 @@ public class OrderDetail {
     @Column(name = "ORDER_QUANTITY", nullable = false)
     private long orderQuantity;
 
+    @ManyToOne
+    @JoinColumn(name = "ORDER_NO")
+    private Order order;
+
+    @ManyToOne
+    @JoinColumn(name = "PRODUCT_NO")
+    private Product product;
+
 }

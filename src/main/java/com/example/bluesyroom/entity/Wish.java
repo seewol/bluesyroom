@@ -15,4 +15,12 @@ public class Wish {
     @Column(name = "WISH_NO", nullable = false)
     private long wishNo;
 
+    @ManyToOne
+    @JoinColumn(name = "USER_NO")
+    private User user;
+
+    @ManyToOne
+    @JoinColumn(name = "PRODUCT_NO")
+    private Product product;
+
 }

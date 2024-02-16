@@ -9,7 +9,7 @@ import java.util.Date;
 @Entity
 @Getter
 @Setter
-@Table(name = "ORDER")
+@Table(name = "ORDER_TABLE")
 public class Order {
 
     @Id
@@ -42,7 +42,7 @@ public class Order {
     private long orderPrice;
 
     @ManyToOne
-    @JoinColumn(name="USER_NO")
+    @JoinColumn(name = "USER_NO")
     private User user;
 
 }

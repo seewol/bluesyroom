@@ -18,4 +18,7 @@ public class ProductImage {
     @Column(name = "IMAGE_URL", nullable = false)
     private String imageURL;
 
+    @ManyToOne
+    @JoinColumn(name = "PRODUCT_NO")
+    private Product product;
 }
