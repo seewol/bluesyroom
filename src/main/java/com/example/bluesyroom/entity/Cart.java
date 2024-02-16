@@ -18,4 +18,12 @@ public class Cart {
     @Column(name = "CART_QUANTITY", nullable = false)
     private long cartQuantity;
 
+    @ManyToOne
+    @JoinColumn(name = "USER_NO")
+    private User user;
+
+    @ManyToOne
+    @JoinColumn(name = "PRODUCT_NO")
+    private Product product;
+
 }

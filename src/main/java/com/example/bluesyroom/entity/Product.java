@@ -26,4 +26,8 @@ public class Product {
 
     // 테이블 생성과 조인은 이후에 따로 진행할 수 있음
 
+    @OneToOne
+    @JoinColumn(name = "PRODUCT_CATEGORY_NO")
+    private ProductCategory productCategory;
+
 }

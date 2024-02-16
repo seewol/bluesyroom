@@ -18,4 +18,8 @@ public class ProductOptionDetail {
     @Column(name = "OPTION_CONTENT", nullable = false)
     private String optionContent;
 
+    @ManyToOne
+    @JoinColumn(name = "OPTION_NO")
+    private ProductOption productOption;
+
 }
