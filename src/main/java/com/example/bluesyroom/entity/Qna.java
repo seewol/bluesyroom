@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Date;
+
 @Entity
 @Getter
 @Setter       // 문의
@@ -29,4 +31,7 @@ public class Qna {
     @JoinColumn(name="QNA_CATEGORY_NO")
     private QnaCategory qnaCategory;
 
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "QNA_DATE", nullable = false)
+    private Date qnaDate;
 }
