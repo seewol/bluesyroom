@@ -37,6 +37,6 @@ public class CouponDetail {
     @Column(name = "COUPON_EX_END", nullable = false)
     private Date CouponExEnd;
 
-    @Column(name = "COUPON_YN", nullable = false)
+    @Column(name = "IS_USED", nullable = false)
     private boolean couponYN;
 }

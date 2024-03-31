@@ -1,5 +1,6 @@
 package com.example.bluesyroom.entity;
 
+import java.util.*;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

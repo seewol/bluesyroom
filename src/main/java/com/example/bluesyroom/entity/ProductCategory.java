@@ -17,4 +17,5 @@ public class ProductCategory {
     @Column(name = "PRODUCT_CATEGORY_NAME", nullable = false)
     private String productCategoryName;
 
+
 }
