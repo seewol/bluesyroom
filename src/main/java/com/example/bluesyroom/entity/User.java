@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Date;
+import java.util.*;
 
 @Entity
 @Getter
@@ -16,6 +16,12 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "USER_NO", nullable = false)
     private long userNo;
+
+    @Column(name = "USER_ID")
+    private String userId;
+
+    @Column(name = "USER_PW")
+    private String userPw;
 
     @Column(name = "USER_NAME", nullable = false)
     private String userName;
@@ -36,4 +42,32 @@ public class User {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "CREATED_AT", nullable = false)
     private Date createdAt;
+
+    @OneToMany(mappedBy = "user")
+    private List<Order> orderList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user")
+    private List<Qna> qnaList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user")
+    private List<Cart> cartList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user")
+    private List<Wish> wishList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user")
+    private List<Address> addressList = new ArrayList<>();
+
+    public User (String userId, String userPw, String userName, String phone, String email,
+                 String loginType, RoleType roleType){
+
+        this.userId = userId;
+        this.userPw = userPw;
+        this.userName = userName;
+        this.phone = phone;
+        this.email = email;
+        this.loginType = loginType;
+        this.roleType = roleType;
+    }
+
 }

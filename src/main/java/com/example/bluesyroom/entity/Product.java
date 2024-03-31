@@ -1,8 +1,10 @@
 package com.example.bluesyroom.entity;
 
+import java.util.*;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import com.example.bluesyroom.entity.ProductImage;
 
 @Entity
 @Getter
@@ -29,5 +31,11 @@ public class Product {
     @OneToOne
     @JoinColumn(name = "PRODUCT_CATEGORY_NO")
     private ProductCategory productCategory;
+
+    @OneToMany(mappedBy = "product")
+    private List<ProductImage> productImageList = new ArrayList<ProductImage>();
+
+    @OneToMany(mappedBy = "product")
+    private List<ProductOption> productOptionList = new ArrayList<>();
 
 }

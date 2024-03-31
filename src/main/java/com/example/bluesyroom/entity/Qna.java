@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Date;
+import java.util.*;
 
 @Entity
 @Getter
@@ -34,4 +34,7 @@ public class Qna {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "QNA_DATE", nullable = false)
     private Date qnaDate;
+
+    @OneToMany(mappedBy = "qna")
+    private List<Comments> commentsList = new ArrayList<>();
 }
