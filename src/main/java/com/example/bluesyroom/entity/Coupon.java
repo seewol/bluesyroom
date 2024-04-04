@@ -15,6 +15,9 @@ public class Coupon {
     @Column(name = "COUPON_NO", nullable = false)
     private long couponNo;
 
+    @Column(name = "COUPON_NAME", nullable = false)
+    private String couponName;
+
     @Column(name = "COUPON_TYPE", nullable = false)
     private long couponType;
 
