@@ -2,14 +2,20 @@ package com.example.bluesyroom.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import java.time.LocalDateTime;
 import java.util.*;
 
 @Entity
 @Getter
 @Setter
 @Table(name = "USER")
+@NoArgsConstructor
+@EntityListeners(AuditingEntityListener.class)
 public class User {
 
     @Id
@@ -39,9 +45,9 @@ public class User {
     @Column(name = "ROLE_TYPE", nullable = false)
     private RoleType roleType;
 
-    @Temporal(TemporalType.TIMESTAMP)
+    @CreatedDate
     @Column(name = "CREATED_AT", nullable = false)
-    private Date createdAt;
+    private LocalDateTime createdAt;
 
     @OneToMany(mappedBy = "user")
     private List<Order> orderList = new ArrayList<>();
