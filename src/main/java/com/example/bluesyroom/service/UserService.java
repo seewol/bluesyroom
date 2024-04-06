@@ -2,6 +2,8 @@ package com.example.bluesyroom.service;
 
 import com.example.bluesyroom.dto.user.UserJoinRequestDto;
 import com.example.bluesyroom.dto.user.UserJoinResponseDto;
+import com.example.bluesyroom.dto.user.UserLoginRequestDto;
+import com.example.bluesyroom.dto.user.UserLoginResponseDto;
 import com.example.bluesyroom.entity.RoleType;
 import com.example.bluesyroom.entity.User;
 import com.example.bluesyroom.repository.UserRepository;
@@ -23,5 +25,24 @@ public class UserService {
         User result = userRepository.save(user);
 
         return new UserJoinResponseDto(result.getUserNo(), result.getUserName());
+    }
+
+    public UserLoginResponseDto loginUser(UserLoginRequestDto dto){
+
+        // dto(Request) - entity - dto(Response)
+
+        User result = null;
+
+        try {
+            result = userRepository.findByUserId(dto.getUserId());
+        } catch (Exception e){
+
+        }
+
+        if (dto.getUserPw().equals(result.getUserPw())){
+            return new UserLoginResponseDto(1);
+        } else {
+            return new UserLoginResponseDto(0);
+        }
     }
 }
