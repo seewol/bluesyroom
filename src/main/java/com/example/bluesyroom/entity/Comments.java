@@ -2,13 +2,19 @@ package com.example.bluesyroom.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
 @Getter
-@Setter         // 문의에 대한 댓글
+@Setter
+@EntityListeners(AuditingEntityListener.class)
+@NoArgsConstructor
 @Table(name = "COMMENTS")
 public class Comments {
 
@@ -20,9 +26,9 @@ public class Comments {
     @Column(name = "COMMENTS_CONTENT", nullable = false)
     private String commentsContent;
 
-    @Temporal(TemporalType.TIMESTAMP)
+    @CreatedDate
     @Column(name = "COMMENTS_DATE", nullable = false)
-    private Date commentsDate;
+    private LocalDateTime commentsDate;
 
     @ManyToOne
     @JoinColumn(name = "USER_NO")

@@ -2,13 +2,19 @@ package com.example.bluesyroom.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import java.time.LocalDateTime;
 import java.util.*;
 
 @Entity
 @Getter
-@Setter       // 문의
+@Setter
+@EntityListeners(AuditingEntityListener.class)
+@NoArgsConstructor
 @Table(name = "QNA")
 public class Qna {
 
@@ -31,9 +37,13 @@ public class Qna {
     @JoinColumn(name="QNA_CATEGORY_NO")
     private QnaCategory qnaCategory;
 
-    @Temporal(TemporalType.TIMESTAMP)
+    /* @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "QNA_DATE", nullable = false)
-    private Date qnaDate;
+    private Date qnaDate; */
+
+    @CreatedDate
+    @Column(name = "QNA_DATE", nullable = false)
+    private LocalDateTime qnaDate;
 
     @OneToMany(mappedBy = "qna")
     private List<Comments> commentsList = new ArrayList<>();
