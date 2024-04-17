@@ -2,13 +2,18 @@ package com.example.bluesyroom.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
 @Setter
+@EntityListeners(AuditingEntityListener.class)
+@NoArgsConstructor
 @Table(name = "PAYMENT")
 public class Payment {
 
@@ -17,9 +22,9 @@ public class Payment {
     @Column(name = "PAYMENT_NO")
     private long paymentNo;
 
-    @Temporal(TemporalType.TIMESTAMP)
+    @CreatedDate
     @Column(name = "CREATED_AT")
-    private Date createdAt;
+    private LocalDateTime createdAt;
 
     @OneToOne
     @JoinColumn(name = "ORDER_NO")

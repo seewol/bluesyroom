@@ -13,9 +13,9 @@ import java.util.*;
 @Entity
 @Getter
 @Setter
-@Table(name = "USER")
-@NoArgsConstructor
 @EntityListeners(AuditingEntityListener.class)
+@NoArgsConstructor
+@Table(name = "USER")
 public class User {
 
     @Id

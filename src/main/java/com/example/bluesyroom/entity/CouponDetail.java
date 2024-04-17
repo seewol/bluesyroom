@@ -2,13 +2,17 @@ package com.example.bluesyroom.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.util.Date;
 
 @Entity
 @Getter
 @Setter
+@EntityListeners(AuditingEntityListener.class)
+@NoArgsConstructor
 @Table(name = "COUPON_DETAIL")
 public class CouponDetail {
 
