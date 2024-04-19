@@ -4,8 +4,10 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -29,9 +31,9 @@ public class CouponDetail {
     @JoinColumn(name = "USER_NO")
     private User user;
 
-    @Temporal(TemporalType.TIMESTAMP)
+    @CreatedDate
     @Column(name = "COUPON_DATE", nullable = false)
-    private Date couponDate;
+    private LocalDateTime couponDate;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "COUPON_EX_START", nullable = false)

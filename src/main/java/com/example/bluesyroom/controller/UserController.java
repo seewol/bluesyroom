@@ -20,15 +20,15 @@ public class UserController {
 
     @Operation(summary = "회원 가입", description = "회원 가입입니다")
     @PostMapping("")
-    public @ResponseBody ApiResponse<UserJoinResponseDto> joinUser(@RequestBody UserJoinRequestDto request){
+    public @ResponseBody ApiResponse<UserJoinResponseDto> joinUser(@RequestBody UserJoinRequestDto request) throws Exception{
         return ApiResponse.OK(userService.joinUser(request));
     }
 
     @Operation(summary = "로그인", description = "로그인입니다")
     @PostMapping("/login")
-    public @ResponseBody UserLoginResponseDto loginUser(@RequestBody UserLoginRequestDto request){
+    public @ResponseBody ApiResponse<UserLoginResponseDto> loginUser(@RequestBody UserLoginRequestDto request) throws Exception{
                                         // @ModelAttribute 생략된 것이나 마찬가지
-        return userService.loginUser(request);
+        return ApiResponse.OK(userService.loginUser(request));
     }
 
 }
