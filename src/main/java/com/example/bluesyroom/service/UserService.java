@@ -6,9 +6,13 @@ import com.example.bluesyroom.dto.user.UserLoginRequestDto;
 import com.example.bluesyroom.dto.user.UserLoginResponseDto;
 import com.example.bluesyroom.entity.RoleType;
 import com.example.bluesyroom.entity.User;
+import com.example.bluesyroom.exception.CustomException;
 import com.example.bluesyroom.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import static com.example.bluesyroom.apiResponse.ErrorCode.USER_DUPLICATE_ID;
+import static com.example.bluesyroom.apiResponse.ErrorCode.USER_WRONG_PW;
 
 @Service
 public class UserService {
@@ -17,6 +21,15 @@ public class UserService {
     UserRepository userRepository;
 
     public UserJoinResponseDto joinUser(UserJoinRequestDto dto){
+
+        User findUserId = userRepository.findByUserId(dto.getUserId());
+        // User findUserPhone = userRepository
+        // User findUserEmail = userRepository.......
+
+        if(findUserId != null){
+            throw new CustomException(USER_DUPLICATE_ID);
+        }
+
 
         User user = new User(dto.getUserId(), dto.getUserPw(), dto.getUserName(),
                 dto.getPhone(), dto.getEmail(), "local", RoleType.USER);
@@ -36,13 +49,13 @@ public class UserService {
         try {
             result = userRepository.findByUserId(dto.getUserId());
         } catch (Exception e){
-
         }
 
         if (dto.getUserPw().equals(result.getUserPw())){
             return new UserLoginResponseDto(1);
         } else {
-            return new UserLoginResponseDto(0);
+//            return new UserLoginResponseDto(0);
+            throw new CustomException(USER_WRONG_PW);
         }
     }
 }
