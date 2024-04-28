@@ -20,7 +20,7 @@ public class GlobalExceptionHandler {
 
     }
 
-    @ExceptionHandler({ Exception.class }) // CustomException이 잡지 못하는 에러 해결을 위해
+    @ExceptionHandler({ Exception.class }) // CustomException이 잡지 못하는 에러 해결을 위해 (무조건 500)
     protected <T> ApiResponse<T> handleServerException(Exception ex) {
         return new ApiResponse(new ApiHeader(INTERNAL_SERVER_ERROR.getCode(), INTERNAL_SERVER_ERROR.name()), new ApiBody(null, INTERNAL_SERVER_ERROR.getMessage()));
         // return new ResponseEntity(new ErrorDto(INTERNAL_SERVER_ERROR.getStatus(), INTERNAL_SERVER_ERROR.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);

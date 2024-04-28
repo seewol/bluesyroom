@@ -9,6 +9,7 @@ import com.example.bluesyroom.entity.User;
 import com.example.bluesyroom.exception.CustomException;
 import com.example.bluesyroom.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import static com.example.bluesyroom.apiResponse.ErrorCode.USER_DUPLICATE_ID;
@@ -19,6 +20,9 @@ public class UserService {
     // dao => repository
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    PasswordEncoder encoder;
 
     public UserJoinResponseDto joinUser(UserJoinRequestDto dto){
 
@@ -31,7 +35,7 @@ public class UserService {
         }
 
 
-        User user = new User(dto.getUserId(), dto.getUserPw(), dto.getUserName(),
+        User user = new User(dto.getUserId(), encoder.encode(dto.getUserPw()), dto.getUserName(),
                 dto.getPhone(), dto.getEmail(), "local", RoleType.USER);
 
         // 여기는 DB 저장 후의 상태라 userNo, createdAt이 들어있음
@@ -51,7 +55,7 @@ public class UserService {
         } catch (Exception e){
         }
 
-        if (dto.getUserPw().equals(result.getUserPw())){
+        if (encoder.matches(dto.getUserPw(), result.getUserPw())){
             return new UserLoginResponseDto(1);
         } else {
 //            return new UserLoginResponseDto(0);
