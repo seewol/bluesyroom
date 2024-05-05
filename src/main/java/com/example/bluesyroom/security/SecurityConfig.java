@@ -1,6 +1,8 @@
 package com.example.bluesyroom.security;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer.FrameOptionsConfig;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,10 +12,15 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 @Configuration
+@EnableMethodSecurity    // 추가
+@RequiredArgsConstructor
 public class SecurityConfig {
-
+    
+    // * @Autowired 대신 @RequiredArgsConstructor + final 조합으로 쓰기도 함
+    private final JwtAuthenticationFilter jwtAuthenticationFilter;
     private final String[] allowedUrls = {"/", "/swagger-ui/**", "/api-docs/**", "/user", "/user/login"};
                                                                                 // sign-up, sign-in 추가
     @Bean
@@ -29,6 +36,7 @@ public class SecurityConfig {
                 .sessionManagement(sessionManagement ->
                         sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )	// 세션을 사용하지 않으므로 STATELESS 설정
+                .addFilterBefore(jwtAuthenticationFilter, BasicAuthenticationFilter.class)
                 .build();
     }
 

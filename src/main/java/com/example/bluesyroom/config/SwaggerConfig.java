@@ -16,10 +16,12 @@ import org.springframework.context.annotation.Configuration;
                 version = "v1"
         )
 )
+
 @Configuration
 public class SwaggerConfig {
 
     private static final String BEARER_TOKEN_PREFIX = "Bearer";
+    private static final String SECURITY_SCHEME_NAME = "authorization";
 
     @Bean
     public OpenAPI openAPI() {
@@ -31,7 +33,6 @@ public class SwaggerConfig {
                         .type(SecurityScheme.Type.HTTP)
                         .scheme(BEARER_TOKEN_PREFIX)
                         .bearerFormat(securityJwtName));
-
         return new OpenAPI()
                 .addSecurityItem(securityRequirement)
                 .components(components);
