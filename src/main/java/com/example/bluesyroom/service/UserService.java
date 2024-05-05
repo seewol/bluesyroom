@@ -8,12 +8,12 @@ import com.example.bluesyroom.entity.RoleType;
 import com.example.bluesyroom.entity.User;
 import com.example.bluesyroom.exception.CustomException;
 import com.example.bluesyroom.repository.UserRepository;
+import com.example.bluesyroom.security.TokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import static com.example.bluesyroom.apiResponse.ErrorCode.USER_DUPLICATE_ID;
-import static com.example.bluesyroom.apiResponse.ErrorCode.USER_WRONG_PW;
+import static com.example.bluesyroom.apiResponse.ErrorCode.*;
 
 @Service
 public class UserService {
@@ -22,7 +22,10 @@ public class UserService {
     UserRepository userRepository;
 
     @Autowired
-    PasswordEncoder encoder;
+    PasswordEncoder encoder;    // Bcrypt
+
+    @Autowired
+    TokenProvider tokenProvider;
 
     public UserJoinResponseDto joinUser(UserJoinRequestDto dto){
 
@@ -38,7 +41,7 @@ public class UserService {
         User user = new User(dto.getUserId(), encoder.encode(dto.getUserPw()), dto.getUserName(),
                 dto.getPhone(), dto.getEmail(), "local", RoleType.USER);
 
-        // 여기는 DB 저장 후의 상태라 userNo, createdAt이 들어있음
+        // 여기는 DB 저장 후의 상태라 userNo, createdAt이 추가로 들어있음
         User result = userRepository.save(user);
 
         return new UserJoinResponseDto(result.getUserNo(), result.getUserName());
@@ -50,16 +53,19 @@ public class UserService {
 
         User result = null;
 
-        try {
-            result = userRepository.findByUserId(dto.getUserId());
-        } catch (Exception e){
+        // 로그인 ID, PW 확인
+        result = userRepository.findByUserId(dto.getUserId());
+        if (result == null){
+            throw new CustomException(USER_WRONG_ID_PW);
         }
 
         if (encoder.matches(dto.getUserPw(), result.getUserPw())){
-            return new UserLoginResponseDto(1);
+            String token = tokenProvider.createToken(String.format("%s:%s", result.getUserId(), result.getRoleType()));
+            System.out.println(token);
+            return new UserLoginResponseDto(1, token);
         } else {
-//            return new UserLoginResponseDto(0);
-            throw new CustomException(USER_WRONG_PW);
+            // return new UserLoginResponseDto(0);
+            throw new CustomException(USER_WRONG_ID_PW);
         }
     }
 }
