@@ -15,7 +15,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 @Configuration
-@EnableMethodSecurity    // 추가
+@EnableMethodSecurity  // 메소드 시큐리티 활성화
 @RequiredArgsConstructor
 public class SecurityConfig {
     

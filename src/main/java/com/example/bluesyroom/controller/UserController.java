@@ -1,6 +1,7 @@
 package com.example.bluesyroom.controller;
 
 import com.example.bluesyroom.apiResponse.ApiResponse;
+import com.example.bluesyroom.customAnnotation.UserAuthorize;
 import com.example.bluesyroom.dto.user.UserJoinRequestDto;
 import com.example.bluesyroom.dto.user.UserJoinResponseDto;
 import com.example.bluesyroom.dto.user.UserLoginRequestDto;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+@UserAuthorize
 @RestController
 @RequestMapping("/user")
 public class UserController {
