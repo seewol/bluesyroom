@@ -25,7 +25,7 @@ public class UserService {
     PasswordEncoder encoder;    // Bcrypt
 
     @Autowired
-    TokenProvider tokenProvider;
+    TokenProvider tokenProvider; // 토큰 발급
 
     public UserJoinResponseDto joinUser(UserJoinRequestDto dto){
 
