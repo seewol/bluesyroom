@@ -3,10 +3,12 @@ package com.example.bluesyroom.entity;
 import java.util.*;
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import com.example.bluesyroom.entity.ProductImage;
 
 @Entity
+@NoArgsConstructor
 @Getter
 @Setter         // 상품
 @Table(name = "PRODUCT")
@@ -26,6 +28,9 @@ public class Product {
     @Column(name = "PRICE", nullable = false)
     private int price;
 
+    @Column(name = "PRODUCT_QUANTITY", nullable = false)
+    private int productQuantity;
+
     // 테이블 생성과 조인은 이후에 따로 진행할 수 있음
 
     @OneToOne
@@ -38,4 +43,11 @@ public class Product {
     @OneToMany(mappedBy = "product")
     private List<ProductOption> productOptionList = new ArrayList<>();
 
+    public Product(String productName, String productContent, int price, int productQuantity, ProductCategory productCategory) {
+        this.productName = productName;
+        this.productContent = productContent;
+        this.price = price;
+        this.productQuantity = productQuantity;
+        this.productCategory = productCategory;
+    }
 }

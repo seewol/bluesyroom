@@ -2,9 +2,11 @@ package com.example.bluesyroom.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
+@NoArgsConstructor
 @Getter
 @Setter         // 상품 옵션 상세
 @Table(name = "PRODUCT_OPTION_DETAIL")
@@ -22,4 +24,8 @@ public class ProductOptionDetail {
     @JoinColumn(name = "OPTION_NO")
     private ProductOption productOption;
 
+    public ProductOptionDetail(String optionContent, ProductOption productOption) {
+        this.optionContent = optionContent;
+        this.productOption = productOption;
+    }
 }
