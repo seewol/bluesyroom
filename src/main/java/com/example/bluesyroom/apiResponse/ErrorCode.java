@@ -7,6 +7,7 @@ public enum ErrorCode {
     NOT_FOUND_TOKEN(101, "NOT_FOUND_TOKEN"),
     MALFORMED_ERROR(102, "MALFORMED_ERROR"), */
 
+    /* 유저 1~~ */
     // 회원가입
     USER_DUPLICATE_ID(100, "사용중인 아이디입니다."),
 
@@ -16,6 +17,12 @@ public enum ErrorCode {
 
     // 아이디 찾기
     USER_NOT_FOUND(130, "존재하지 않는 아이디입니다."),
+
+
+    /* 상품 2~~ */
+    // 상품 카테고리 없음
+    PRODUCT_NO_NOT_FOUND(200, "존재하지 않는 카테고리입니다"),
+
 
     INTERNAL_SERVER_ERROR(500, "SERVER_ERROR")
     ;
