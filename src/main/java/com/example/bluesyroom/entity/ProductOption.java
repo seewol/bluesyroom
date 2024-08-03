@@ -5,6 +5,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @NoArgsConstructor
 @Getter
@@ -23,6 +26,9 @@ public class ProductOption {
     @ManyToOne
     @JoinColumn(name = "PRODUCT_NO")
     private Product product;
+
+    @OneToMany(mappedBy = "productOption")
+    private List<ProductOptionDetail> productOptionDetailList = new ArrayList<>();
 
     public ProductOption(String optionEx) {
         this.optionEx = optionEx;
