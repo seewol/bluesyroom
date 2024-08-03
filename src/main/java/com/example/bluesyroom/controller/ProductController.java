@@ -3,6 +3,7 @@ package com.example.bluesyroom.controller;
 import com.example.bluesyroom.apiResponse.ApiResponse;
 import com.example.bluesyroom.dto.product.ProductInsertRequestDto;
 import com.example.bluesyroom.dto.product.ProductInsertResponseDto;
+import com.example.bluesyroom.dto.product.ProductSelectResponseDto;
 import com.example.bluesyroom.dto.user.UserJoinRequestDto;
 import com.example.bluesyroom.dto.user.UserJoinResponseDto;
 import com.example.bluesyroom.service.ProductService;
@@ -21,5 +22,11 @@ public class ProductController {
     @PostMapping("")
     public @ResponseBody ApiResponse<ProductInsertResponseDto> insertProduct(@RequestBody ProductInsertRequestDto request) throws Exception{
         return ApiResponse.OK(productService.insertProduct(request));
+    }
+
+    @Operation(summary = "상품 조회", description = "상품 조회입니다")
+    @GetMapping("/{id}")
+    public @ResponseBody ApiResponse<ProductSelectResponseDto> selectProduct(@PathVariable(name = "id") long id) throws Exception{
+        return ApiResponse.OK(productService.selectProduct(id));
     }
 }
