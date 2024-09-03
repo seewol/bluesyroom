@@ -11,6 +11,8 @@ import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/product")
 public class ProductController {
@@ -28,5 +30,12 @@ public class ProductController {
     @GetMapping("/{id}")
     public @ResponseBody ApiResponse<ProductSelectResponseDto> selectProduct(@PathVariable(name = "id") long id) throws Exception{
         return ApiResponse.OK(productService.selectProduct(id));
+    }
+
+
+    @Operation(summary = "상품 목록 조회", description = "상품 목록 조회입니다")
+    @GetMapping("")
+    public @ResponseBody ApiResponse<List<ProductSelectResponseDto>> listSelectProduct() throws Exception{
+        return ApiResponse.OK(productService.listSelectProduct());
     }
 }

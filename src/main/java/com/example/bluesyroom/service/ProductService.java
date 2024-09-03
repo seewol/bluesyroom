@@ -105,4 +105,38 @@ public class ProductService {
         return new ProductSelectResponseDto(product.getProductNo(), product.getProductCategory().getProductCategoryNo(), product.getProductName(), product.getProductContent(),
                 product.getPrice(), product.getProductQuantity(), optionDtoList);
     }
+
+    public List<ProductSelectResponseDto> listSelectProduct() {
+            // 정의, 선언에서는 List 타입 사용 (구현 시에는 ArrayList 타입 사용)
+
+        ArrayList<Product> productArrayList = (ArrayList<Product>) productRepository.findAll();
+
+        ArrayList<ProductSelectResponseDto> dtos = new ArrayList<>();
+
+        for(Product product : productArrayList){
+
+            List<ProductSelectResponseDto.productOptionSelectResponseDto> optionDtoList = new ArrayList<>();
+
+            // Option Entity List 를 Option Dto List로 바꾸는 과정 (꺼내는 거)
+            for(ProductOption productOption : product.getProductOptionList()){
+                // Entity List → Entity
+
+                // Option 하나에 연결된 Option detail Entity List를 가져와 String 타입의 List detail에 넣어줌
+                // 결국은 이 과정이 optionDto의 optionDetails 자리에 넣기 위함.
+                List<String> detail = new ArrayList<>();
+                for(ProductOptionDetail d : productOption.getProductOptionDetailList()){
+                    detail.add(d.getOptionContent());
+                }
+
+                ProductSelectResponseDto.productOptionSelectResponseDto optionDto = new ProductSelectResponseDto.productOptionSelectResponseDto(productOption.getOptionEx(), detail);
+                // 위의 optionDtoList는 여러 개의 optionDto를 넣기 위해 만듦
+                optionDtoList.add(optionDto);
+            }
+
+            dtos.add(new ProductSelectResponseDto(product.getProductNo(), product.getProductCategory().getProductCategoryNo(), product.getProductName(), product.getProductContent(),
+                    product.getPrice(), product.getProductQuantity(), optionDtoList)); // dto들이 만들어졌다 ~ ~ ~
+        }
+
+        return dtos;
+    }
 }
