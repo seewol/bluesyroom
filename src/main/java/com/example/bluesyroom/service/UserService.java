@@ -29,7 +29,8 @@ public class UserService {
 
     public UserJoinResponseDto joinUser(UserJoinRequestDto dto){
 
-        User findUserId = userRepository.findByUserId(dto.getUserId());
+        User findUserId = userRepository.findByUserId(dto.getUserId())
+                .orElseThrow( ()-> new CustomException(USER_NOT_FOUND));
         // User findUserPhone = userRepository
         // User findUserEmail = userRepository.......
 
@@ -54,7 +55,9 @@ public class UserService {
         User result = null;
 
         // 로그인 ID, PW 확인
-        result = userRepository.findByUserId(dto.getUserId());
+        result = userRepository.findByUserId(dto.getUserId())
+                .orElseThrow( ()-> new CustomException(USER_NOT_FOUND));
+
         if (result == null){
             throw new CustomException(USER_WRONG_ID_PW);
         }
