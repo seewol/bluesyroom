@@ -26,14 +26,14 @@ import java.util.Optional;
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private final TokenProvider tokenProvider;
 
-    @Override
+    @Override   // 로그인 시도 때마다 활성화되는 필터
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String token = parseBearerToken(request);
-        User user = parseUserSpecification(token);
+        User user = parseUserSpecification(token);                      // 로그인 안 되면 여기서 걸러짐;;;
         AbstractAuthenticationToken authenticated = UsernamePasswordAuthenticationToken.authenticated(user, token, user.getAuthorities());
         authenticated.setDetails(new WebAuthenticationDetails(request));
         SecurityContextHolder.getContext().setAuthentication(authenticated);
-
+        // 홀더에 로그인 된 유저 정보 담아둠 (로그인 성공했다는 뜻)
         filterChain.doFilter(request, response);
     }
 

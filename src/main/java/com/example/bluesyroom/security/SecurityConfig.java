@@ -21,7 +21,7 @@ public class SecurityConfig {
     
     // * @Autowired 대신 @RequiredArgsConstructor + final 조합으로 쓰기도 함
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
-    private final String[] allowedUrls = {"/", "/swagger-ui/**", "/api-docs/**", "/user", "/user/login"};
+    private final String[] allowedUrls = {"/", "/swagger-ui/**", "/api-docs/**", "/user/**", "/user/login"};
                                                                                 // sign-up, sign-in 추가
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
